@@ -43,21 +43,23 @@
 
 use List::Util qw[min max];
 use Digest::MD5 qw(md5 md5_hex md5_base64);
+use Getopt::Long;
 
-$historyDir = $ARGV[0];
+$mrVersion = 1;
+$historyDir = "/tmp";
 
 opendir(my $HIST_DIR, $historyDir);
-#my @directory_contents = readdir(HIST_DIR);
-#closedir(HIST_DIR);
 
 my %jobs = {};
 my $files = 0;
 
-#foreach my $dentry ( @directory_contents ) {
+print "before get opt\n";
+GetOptions ("mr_version=i" => \$mrVersion,
+            "hs_uri:s" => \$hsUri,
+            "hs_dir:s" => \$historyDir)
+  or die("Usage: $0 --mr_version=1 --hs_dir=/tmp\n");
 
-while  (
-	defined( my $dentry = readdir $HIST_DIR )
-	) {
+while  (defined( my $dentry = readdir $HIST_DIR )) {
 
     #if (!($dentry =~ /^*conf*/) && !($dentry =~ /^*crc/)) {
     $files++;

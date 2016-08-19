@@ -4,6 +4,7 @@ use warnings;
 use Getopt::Long;
 use Date::Parse;
 use POSIX;
+use Data::Dumper;
 
 my $inPath    = undef;
 my $outPrefix = undef;
@@ -53,7 +54,7 @@ while (<INPUT_FILE>) {
 
 }
 
-#print "total lines " . $dataSize . "\n";
+print "total lines " . $dataSize . "\n";
 
 close(INPUT_FILE);
 
@@ -112,7 +113,6 @@ sub sample_and_print {
 	    # print out workload
 
 	    for (my $k=$mid; $all_data[$k][5] <= $endTime; $k++) {
-
 		if ($all_data[$k][5] >= $startTime && $all_data[$k][5] <= $endTime) {
 
 		    $timeSoFar += ($all_data[$k][5] - floor($prev));
